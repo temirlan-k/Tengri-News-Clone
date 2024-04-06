@@ -1,0 +1,26 @@
+{% extends 'html/base/base.html' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">{{ post.title }}</h1>
+                        <div style="text-align: center;">
+                            <img style="max-width: 60%; margin: 0 auto;max-height: 70%" src="{{ post.image_link }}" class="card-img-top" alt="">
+                        </div>
+
+                        <h5  style="margin-top: 3rem">Content:</h5>
+                        <p class="card-text">{{ post.content }}</p>
+                        <p class="card-text"><small class="text-muted">Published on: {{ post.created_at }}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

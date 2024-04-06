@@ -1,0 +1,105 @@
+    {% extends 'html/base/base.html' %}
+
+    {% block title %}
+        News List
+    {% endblock %}
+
+    {% block content %}
+
+        <h1>News List</h1>
+
+    <div class="container">
+     <div class="row justify-content-center align-items-center mt-5 mb-3">
+        <div class="col-md-4">
+        <div class="input-group">
+            <form method="GET" action="{% url 'search_news' %}" class="input-group">
+                {% csrf_token %}
+                <input type="text" class="form-control" name="q" placeholder="Search by Title">
+                <div class="input-group-prepend" style="margin-left: 1rem; vertical-align: middle;">
+                        <button type="submit" style="margin-top: 0.4rem;" class="btn btn-primary btn-sm">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+        <div class="col-md-4 ">
+            <div class="d-flex align-items-center justify-content-center">
+                <form class="form-inline" method="GET" action="{% url 'search_news' %}">
+                    <div class="form-group">
+                        {{ filter_form.category }}
+                        <button type="submit" style="margin-left: 1rem;" class="btn btn-primary btn-sm">Filter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <form class="form-inline" method="get" action="{% url 'search_news' %}">
+                <div class="input-group">
+                    <select class="form-control form-control-sm" name="sort_by" id="sort_by">
+                        <option value="">Sort by</option>
+                        <option value="created_at_asc" {% if request.GET.sort_by == 'created_at_asc' %}selected{% endif %}>Oldest First</option>
+                        <option value="created_at_desc" {% if request.GET.sort_by == 'created_at_desc' %}selected{% endif %}>Newest First</option>
+                    </select>
+                    <div class="input-group-prepend" style="margin-left: 1rem; vertical-align: middle;">
+                        <button type="submit" class="btn btn-primary btn-sm">Sort</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+        <div class="row">
+            {% for post in object_list %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/gfgsublime.png" class="card-img-top" alt="">
+                        <h5 class="card-title">Title: {{ post.title.capitalize }}</h5>
+                        <p class="card-text">Category: {{ post.category }}</p>
+                        <p class="card-text">Published at: {{ post.created_at }}</p>
+                        <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-primary">Read Post</a>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:"3" and not forloop.last %}
+                </div><div class="row">
+            {% endif %}
+            {% empty %}
+            <div class="col">
+                <p>No news articles available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container static-bottom">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">&laquo; First</span></li>
+                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                        {% endif %}
+
+                        <li class="page-item"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                            <li class="page-item disabled"><span class="page-link">Last &raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

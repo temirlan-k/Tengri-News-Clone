@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Detail</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        {% if post %}
+            <h1>{{ post.title }}</h1>
+            {% if post.image_src %}
+                <img src="{{ post.image_src }}" alt="Image" class="img-fluid mb-3">
+            {% endif %}
+            <p>Date: {{ post.date }}</p>
+            <p>{{ post.content }}</p>
+        {% else %}
+            <p>Post not found.</p>
+        {% endif %}
+        <a href="{% url 'all_posts' %}" class="btn btn-primary">Back to All Posts</a>
+    </div>
+
+    <!-- Bootstrap JS and jQuery (необходимо для работы некоторых компонентов Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
