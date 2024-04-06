@@ -21,8 +21,8 @@ class Tag(models.Model):
 
 class NewsPost(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=255,blank=True)
-    content = models.TextField(max_length=1500,blank=True)
+    title = models.CharField(max_length=255, blank=True)
+    content = models.TextField(max_length=1500, blank=True)
     image_link = models.CharField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

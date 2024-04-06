@@ -1,6 +1,5 @@
 from django import forms
 from .models import NewsPost, Category
-from django.core.exceptions import ValidationError
 
 
 class NewsPostForm(forms.ModelForm):

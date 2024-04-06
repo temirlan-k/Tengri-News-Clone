@@ -5,10 +5,9 @@ import sys
 import subprocess
 
 
-
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tengrinews.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tengrinews.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -19,10 +18,12 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+
 def run_scheduler():
     """Run the task scheduler."""
     subprocess.Popen(["python", "tasks.py"])
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     run_scheduler()
     main()

@@ -9,11 +9,12 @@ class Subscription(models.Model):
     categories = models.ManyToManyField(Category, related_name="subscriptions")
     timestamp = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
-    
-    def __str__(self):
-        categories_names = ", ".join([category.name for category in self.categories.all()])
-        return f"{self.user.email} - {categories_names} Subscription"
 
+    def __str__(self):
+        categories_names = ", ".join(
+            [category.name for category in self.categories.all()]
+        )
+        return f"{self.user.email} - {categories_names} Subscription"
 
     class Meta:
         verbose_name = "Subscription"
