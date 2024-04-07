@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from .aws import s3_manager, AWS_BUCKET_NAME
 from .forms import NewsFilterForm, PostForm
 from .models import NewsPost
+from django.contrib.auth.decorators import permission_required
 
 
 class NewsListView(generic.ListView):
@@ -73,7 +74,7 @@ class PostDetailView(generic.DetailView):
     template_name = "html/news/post_detail.html"
     context_object_name = "post"
 
-
+@permission_required('auth.is_staff', raise_exception=True)
 def create_post(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
@@ -103,8 +104,13 @@ def create_post(request):
 
 
 def all_posts(request):
+    query = request.GET.get('q')
     with open("news_service/utils/parsed_data.json", "r", encoding="utf-8") as file:
         posts = json.load(file)
+
+    if query:
+        posts = [post for post in posts if query.lower() in post['title'].lower()]
+    
 
     paginator = Paginator(posts, 10)
     page_number = request.GET.get("page")

@@ -2,13 +2,21 @@
 
 {% block content %}
 <h1>Список новостей</h1>
+
+<form method="GET" action="{% url 'search_news' %}" class="input-group mb-3">
+    <input type="text" class="form-control" name="q" placeholder="Search by Title">
+    <div class="input-group-prepend" style="margin-left: 1rem; vertical-align: middle;">
+    <button type="submit" style="margin-top: 0rem;" class="btn btn-primary btn-sm">Search</button>
+    </div>
+</form>
+
 <div class="row">
     {% for post in posts %}
     <div class="col-md-4">
         <div class="card mb-4">
             <div class="card-body">
                 <img class="card-img-top" src="{{ post.image_src }}" alt="Card image cap">
-                <h5 class="card-title">{{ post.title.capitalize }}</h5>
+                <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text"> {{ post.content|truncatewords_html:10 }}</p>
                 <p class="card-text"> {{ post.date }}</p>
                 <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read Post</a>
