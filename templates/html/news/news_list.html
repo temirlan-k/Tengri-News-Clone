@@ -85,7 +85,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <img src="{{ post.image_link }}" class="card-img-top" alt="">
-                        <h5 class="card-title">Title: {{ post.title.capitalize }}</h5>
+                        <h5 class="card-title">{{ post.title }}</h5>
                         <p class="card-text">Category: {{ post.category }}</p>
                         <p class="card-text">Published at: {{ post.created_at }}</p>
                         <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-primary">Read Post</a>

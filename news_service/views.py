@@ -15,7 +15,7 @@ class NewsListView(generic.ListView):
     template_name = "html/news/news_list.html"
     context_object_name = "news"
     ordering = ["-created_at"]
-    paginate_by = 2
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,7 +41,7 @@ class SearchNewsView(generic.ListView):
     template_name = "html/news/news_list.html"
     context_object_name = "object_list"
     ordering = ["-created_at"]
-    paginate_by = 2
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

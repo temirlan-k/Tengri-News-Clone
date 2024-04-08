@@ -14,21 +14,24 @@
 </style>
 
 
-  <div class="container mt-5 mb-5 ">
-    {% if post %}
-      <h1 style="text-align: center;" >{{ post.title }}</h1>
-      {% if post.media_src %}
-      <div style="text-align: center; display: flex; align-items: center; justify-content: center;">
-        <iframe class="card-img-top" src="{{ post.media_src }}" frameborder="0" style="width: 100%; max-width: 1000px; height: 45rem; margin: 0 auto;" alt="Card image cap"></iframe>
-    </div>
-
+<div class="container mt-5 mb-5">
+  {% if post %}
+      <h1 style="text-align: center;">{{ post.title }}</h1>
+      {% if post.media_src|slice:'-3:' == 'mp4' %}
+          <video class="card-img-top" controls loop style="display: block; margin: 0 auto; max-width: 1000px; height: 45rem;">
+              <source src="{{ post.media_src }}" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      {% else %}
+          <img class="card-img-top" src="{{ post.media_src }}" style="display: block; margin: 0 auto; max-width: 1000px; height: 45rem;" alt="Card image cap">
       {% endif %}
+
       <p>Date: {{ post.date }}</p>
       <p>{{ post.content }}</p>
-    {% else %}
+  {% else %}
       <p>Post not found.</p>
-    {% endif %}
-    <a href="{% url 'all_parsed_posts' %}" class="btn btn-primary">Back to All Posts</a>
-  </div>
-  
+  {% endif %}
+  <a href="{% url 'all_parsed_posts' %}" class="btn btn-primary">Back to All Posts</a>
+</div>
+
 {% endblock %}

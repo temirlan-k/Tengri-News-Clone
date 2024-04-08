@@ -17,8 +17,16 @@
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
-                    <iframe class="card-img-top" src="{{ post.media_src }}" frameborder="0" style="overflow:hidden;" seamless="seamless" scrolling='no' alt="Card image cap" width="300" height="200" loop></iframe>
-                    <h5 class="card-title">{{ post.title }}</h5>
+                    {% if post.media_src|slice:'-3:' == 'mp4' %}
+                    <video class="card-img-top" controls loop>
+                        <source src="{{ post.media_src }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    
+            {% else %}
+                <img src="{{ post.media_src }}" class="card-img-top" alt="Card image cap"  width="300" height="200" style="border: none;">
+            {% endif %}
+            <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text"> {{ post.content|truncatewords_html:10 }}</p>
                     <p class="card-text"> {{ post.date }}</p>
                     <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read Post</a>
