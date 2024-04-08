@@ -1,37 +1,39 @@
 {% extends 'html/base/base.html' %}
+{% block title %}List of newest news from tengrinews.kz{% endblock %}
 
 {% block content %}
-<h1>Список новостей</h1>
+<h1>List of newest news from tengrinews.kz</h1>
 
-<form method="GET" action="{% url 'search_news' %}" class="input-group mb-3">
+
+<form method="GET" action="{% url 'all_parsed_posts' %}" class="input-group mb-3">
     <input type="text" class="form-control" name="q" placeholder="Search by Title">
     <div class="input-group-prepend" style="margin-left: 1rem; vertical-align: middle;">
     <button type="submit" style="margin-top: 0rem;" class="btn btn-primary btn-sm">Search</button>
     </div>
 </form>
 
-<div class="row">
-    {% for post in posts %}
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <div class="card-body">
-                <img class="card-img-top" src="{{ post.image_src }}" alt="Card image cap">
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text"> {{ post.content|truncatewords_html:10 }}</p>
-                <p class="card-text"> {{ post.date }}</p>
-                <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read Post</a>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <iframe class="card-img-top" src="{{ post.media_src }}" frameborder="0" style="overflow:hidden;" seamless="seamless" scrolling='no' alt="Card image cap" width="300" height="200" loop></iframe>
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text"> {{ post.content|truncatewords_html:10 }}</p>
+                    <p class="card-text"> {{ post.date }}</p>
+                    <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read Post</a>
+                </div>
             </div>
         </div>
+        {% if forloop.counter|divisibleby:"3" and not forloop.last %}
+            </div><div class="row">
+        {% endif %}
+        {% empty %}
+        <div class="col">
+            <p>No news articles available.</p>
+        </div>
+        {% endfor %}
     </div>
-    {% if forloop.counter|divisibleby:"3" and not forloop.last %}
-        </div><div class="row">
-    {% endif %}
-    {% empty %}
-    <div class="col">
-        <p>No news articles available.</p>
-    </div>
-    {% endfor %}
-</div>
 
 <div class="container static-bottom">
     <div class="row justify-content-center">

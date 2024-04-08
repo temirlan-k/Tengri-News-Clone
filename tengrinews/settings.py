@@ -27,10 +27,10 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
+BASE_URL = "https://tengri-news-clone.onrender.com"
 
 # Application definition
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
+    "django_apscheduler",
 ]
 INSTALLED_APPS.extend(PROJECT_APPS)
 
@@ -91,8 +92,8 @@ WSGI_APPLICATION = "tengrinews.wsgi.application"
 #         "NAME": os.getenv("DB_NAME"),
 #         "USER": os.getenv("DB_USER"),
 #         "PASSWORD": os.getenv("DB_PASSWORD"),
-#         "HOST": os.getenv("DB_HOST"),
-#         "PORT": os.getenv("DB_PORT"),
+#         "HOST": "localhost",
+#         "PORT": 5432,
 #     }
 # }
 
@@ -136,13 +137,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
-MEDIA_URL='/images/'
+MEDIA_URL = "/images/"
 # STATICFILES_DIRS=[
 #     os.path.join(BASE_DIR,'static')
 # ]
 
-MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -159,3 +160,10 @@ EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+
+LOGIN_URL = "/user/login/"
+
+APSCHEDULER_JOBSTORES = {
+    "default": {"ENGINE": "django_apscheduler.jobstores:DjangoJobStore"}
+}

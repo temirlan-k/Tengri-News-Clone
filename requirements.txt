@@ -15,3 +15,7 @@ schedule==1.2.1
 whitenoise==6.6.0
 dj-database-url==2.1.0
 gunicorn==21.2.0
+APScheduler==3.10.4
+django-apscheduler==0.6.2
+
+

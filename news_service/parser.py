@@ -12,10 +12,25 @@ def parse_a_tags_from_html(html_content):
     for div in a_tags:
         a_tag = div.find("a")
         if a_tag:
-            link = "https://tengrinews.kz/" + a_tag.get("href")
+            link = "https://tengrinews.kz" + a_tag.get("href")
             links.append(link)
 
     return links
+
+
+def parse_media_content(div_tag):
+    img_tag = div_tag.find("img")
+    if img_tag:
+        img_src = img_tag.get("src")
+        return img_src
+    else:
+        video_tag = div_tag.find("video")
+        if video_tag:
+            source_tag = video_tag.find("source")
+            if source_tag:
+                video_src = source_tag.get("src")
+                return video_src
+    return None
 
 
 def parse_news_details(url):
@@ -24,8 +39,12 @@ def parse_news_details(url):
         soup = BeautifulSoup(response.content, "html.parser")
 
         title = soup.find("h1", class_="head-single").text.strip()
-        image_tag = soup.find("picture", class_="content_main_thumb_img")
-        image_src = image_tag.find("source")["srcset"] if image_tag else None
+        content_main_div = soup.find("div", class_="content_main")
+
+        media_src = parse_media_content(
+            content_main_div.find("div", class_="content_main_thumb")
+        )
+
         date = soup.find("div", class_="date-time").text.strip()
         paragraphs = soup.find("div", class_="content_main_text").find_all("p")
 
@@ -34,7 +53,7 @@ def parse_news_details(url):
         news_details = {
             "id": str(uuid.uuid4()),
             "title": title,
-            "image_src": "https://tengrinews.kz" + image_src if image_src else None,
+            "media_src": "https://tengrinews.kz" + media_src,
             "date": date,
             "content": content,
             "url": url,
@@ -77,8 +96,8 @@ def parse_and_save_news(base_url, num_pages, output_file):
     )
 
 
-base_url = "https://tengrinews.kz/news/page/"
-num_pages = 2
-output_file = "news_service/utils/parsed_data.json"
-
-parse_and_save_news(base_url, num_pages, output_file)
+def parse_and_save_news_wrapper():
+    base_url = "https://tengrinews.kz/news/page/"
+    num_pages = 4
+    output_file = "news_service/utils/parsed_data.json"
+    parse_and_save_news(base_url, num_pages, output_file)

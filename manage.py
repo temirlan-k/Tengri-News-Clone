@@ -2,7 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import subprocess
 
 
 def main():
@@ -19,11 +18,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-def run_scheduler():
-    """Run the task scheduler."""
-    subprocess.Popen(["python", "tasks.py"])
-
-
 if __name__ == "__main__":
-    run_scheduler()
     main()

@@ -78,7 +78,7 @@ def user_logout(request):
     return redirect("login")
 
 
-@login_required
+@login_required(login_url="/user/login/")
 def subscription_view(request):
     if request.method == "POST":
         form = SubscriptionForm(request.POST, user=request.user)

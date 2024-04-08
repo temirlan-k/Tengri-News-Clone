@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscribe to Categories</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+{% extends 'html/base/base.html' %}
+
+{% block title %}
+Subscribe to Categories
+{% endblock %}
+
+{% block content %}
+
     <style>
         body {
             padding: 20px;
@@ -17,8 +18,7 @@
             margin-top: 10px;
         }
     </style>
-</head>
-<body>
+
     <div class="container form-container">
         <h2 class="mb-4">Subscribe to Categories</h2>
         <form method="post">
@@ -29,6 +29,5 @@
             <button type="submit" class="btn btn-primary">Subscribe</button>
         </form>
     </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+
+{% endblock %}

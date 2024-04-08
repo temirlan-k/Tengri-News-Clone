@@ -1,33 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Confirmation</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .confirmation-message {
-            text-align: center;
-        }
-        h2 {
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="confirmation-message">
-            <h2>Email Confirmation</h2>
-            <p>Your account has been registered successfully. Please check your email for confirmation.</p>
-        </div>
+{% extends 'html/base/base.html' %}
+{% block title %}
+Email Confirmation
+{% endblock %}
+{% block content %}
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .confirmation-message {
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+    }
+  </style>
+  <div class="container">
+    <div class="confirmation-message">
+      <h2>Email Confirmation</h2>
+      <p>Your account has been registered successfully. Please check your email for confirmation.</p>
     </div>
-</body>
-</html>
+  </div>
+{% endblock %}

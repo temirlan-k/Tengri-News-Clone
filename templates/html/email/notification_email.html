@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Post Notification</title>
+  </head>
+  <body style="font-family: Arial, sans-serif;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+      <h2 style="color: #333333;">New Post in Your Subscribed Category</h2>
+      <hr style="border-top: 1px solid #dddddd; margin-bottom: 20px;" />
+
+      <div style="background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #007bff; margin-bottom: 10px;">{{ post.title }}</h3>
+        <p style="color: #666666; margin-bottom: 10px;">Category: {{ post.category }}</p>
+        <p style="color: #666666; margin-bottom: 20px;">Published at: {{ post.created_at }}</p>
+
+        <p style="color: #333333; margin-bottom: 20px;">{{ post.content|truncatechars:30 }}</p>
+
+        <a href="{{ post.get_absolute_url }}" style="text-decoration: none; color: #007bff; font-weight: bold;">Read more</a>
+      </div>
+
+      <p style="color: #999999; font-size: 12px; margin-top: 20px;">You are receiving this email because you are subscribed to updates in the category "{{ post.category }}".</p>
+    </div>
+  </body>
+</html>
