@@ -14,13 +14,10 @@
     <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px;">
         <p>Hello, {{ user.get_full_name }}</p>
         <p>Please use the following verification link to activate your account:</p>
-        <p>{{token}}</p>
-        <a href="http://localhost:8000/user/confirm_email/{{token}}">
+        <a href="https://tengri-news-clone.onrender.com/user/confirm_email/{{token}}">
             <p style='color:blue'>Verify account</p>
         </a>
-        <a href="{% url 'confirm_email' token %}">
-            <p style='color:blue'>Verify account</p>
-        </a>
+
         <p>If you did not request this verification, please ignore this email.</p>
     </div>
     <div style="text-align: center; margin-top: 20px;">
