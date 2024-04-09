@@ -51,33 +51,32 @@
     </div>
 
 
-        <div class="col-md-4 ">
-            <div class="d-flex align-items-center justify-content-center">
-                <form class="form-inline" method="GET" action="{% url 'search_news' %}">
-                    <div class="form-group">
-                        {{ filter_form.category }}
-                        <button type="submit" style="margin-left: 1rem;" class="btn btn-primary btn-sm">Filter</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <form class="form-inline" method="get" action="{% url 'search_news' %}">
-                <div class="input-group">
-                    <select class="form-control form-control-sm" name="sort_by" id="sort_by">
-                        <option value="">Sort by</option>
-                        <option value="created_at_asc" {% if request.GET.sort_by == 'created_at_asc' %}selected{% endif %}>Oldest First</option>
-                        <option value="created_at_desc" {% if request.GET.sort_by == 'created_at_desc' %}selected{% endif %}>Newest First</option>
-                    </select>
-                    <div class="input-group-prepend" style="margin-left: 1rem; vertical-align: middle;">
-                        <button type="submit" class="btn btn-primary btn-sm">Sort</button>
-                    </div>
+    <div class="col-md-4">
+        <div class="d-flex align-items-center justify-content-center">
+            <form class="form-inline" method="GET" action="{% url 'search_news' %}">
+                <div class="form-group">
+                    {{ filter_form.category }}
+                    <button type="submit" style="margin-left: 1rem;" class="btn btn-primary btn-sm">Filter</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <div class="col-md-4">
+        <form class="form-inline" method="get" action="{% url 'search_news' %}">
+            <div class="input-group">
+                <select class="form-control form-control-sm" name="sort_by" id="sort_by">
+                    <option value="">Sort by</option>
+                    <option value="created_at_asc" {% if request.GET.sort_by == 'created_at_asc' %}selected{% endif %}>Oldest First</option>
+                    <option value="created_at_desc" {% if request.GET.sort_by == 'created_at_desc' %}selected{% endif %}>Newest First</option>
+                </select>
+                <input type="hidden" name="category" value="{{ request.GET.category }}">
+                <div class="input-group-prepend" style="margin-left: 1rem; vertical-align: middle;">
+                    <button type="submit" class="btn btn-primary btn-sm">Sort</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
         <div class="row">
             {% for post in object_list %}

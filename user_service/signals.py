@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 from news_service.models import NewsPost
 from tengrinews.settings import EMAIL_HOST_USER
 
-from .models import Subscription
-
 
 @receiver(post_save, sender=NewsPost)
 def notify_subscribers(sender, instance, created, **kwargs):

@@ -1,7 +1,6 @@
 import uuid
 from tengrinews import settings
 from django.db import models
-
 from autoslug import AutoSlugField
 from django.urls import reverse
 from django.http import request
@@ -15,13 +14,6 @@ class Category(models.Model):
         return self.name
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
 class NewsPost(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255, blank=True)
@@ -30,7 +22,6 @@ class NewsPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(Tag)
 
     def get_absolute_url(self):
         url = reverse("post_detail", kwargs={"pk": self.pk})

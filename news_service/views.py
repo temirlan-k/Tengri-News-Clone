@@ -4,7 +4,7 @@ from django.views import generic
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.views.decorators.http import require_POST
 from .aws import s3_manager, AWS_BUCKET_NAME
 from .forms import NewsFilterForm, PostForm
 from .models import NewsPost
@@ -57,14 +57,14 @@ class SearchNewsView(generic.ListView):
         if query:
             queryset = queryset.filter(Q(title__icontains=query))
 
+        if category:
+            queryset = queryset.filter(category_id=category)
+
         if sort_by:
             if sort_by == "created_at_asc":
                 queryset = queryset.order_by("created_at")
             elif sort_by == "created_at_desc":
                 queryset = queryset.order_by("-created_at")
-
-        if category:
-            queryset = queryset.filter(category_id=category)
 
         return queryset
 
@@ -74,32 +74,25 @@ class PostDetailView(generic.DetailView):
     template_name = "html/news/post_detail.html"
     context_object_name = "post"
 
+
 @login_required(login_url="/user/login/")
+@require_POST
 def create_post(request):
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            title = form.cleaned_data["title"]
-            content = form.cleaned_data["content"]
-            category = form.cleaned_data["category"]
-            image = request.FILES["image_link"]
+    form = PostForm(request.POST, request.FILES)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.author = request.user
 
-            image_link = s3_manager.upload_image(image, AWS_BUCKET_NAME, image.name)
-            if image_link:
-                post = NewsPost(
-                    title=title,
-                    content=content,
-                    category=category,
-                    image_link=image_link,
-                )
-                post.save()
+        image = form.cleaned_data["image_link"]
+        image_link = s3_manager.upload_image(image, AWS_BUCKET_NAME, image.name)
 
-                return redirect("post_detail", pk=post.pk)
-            else:
+        if image_link:
+            post.image_link = image_link
+            post.save()  #
 
-                print("fail")
-    else:
-        form = PostForm()
+            return redirect("post_detail", pk=post.pk)
+        else:
+            form.add_error(None, "Failed to upload image. Please try again.")
     return render(request, "html/news/create_post.html", {"form": form})
 
 

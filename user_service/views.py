@@ -27,7 +27,6 @@ def register(request):
             user_created.save()
 
             email_conf = EmailConfirmation.create(user_created)
-
             subject = "Confirm email"
             token = email_conf.token
             message = render_to_string(
@@ -38,6 +37,7 @@ def register(request):
             send_mail(
                 subject, message, EMAIL_HOST_USER, recipient_list, html_message=message
             )
+
             messages.success(
                 request,
                 "Your account has been registered successfully. Please check your email for confirmation.",

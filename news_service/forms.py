@@ -5,7 +5,7 @@ from .models import NewsPost, Category
 class NewsPostForm(forms.ModelForm):
     class Meta:
         model = NewsPost
-        fields = ["title", "content", "image_link", "category", "tag"]
+        fields = ["title", "content", "image_link", "category"]
 
 
 class SearchForm(forms.Form):

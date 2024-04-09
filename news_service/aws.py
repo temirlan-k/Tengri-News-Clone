@@ -27,7 +27,6 @@ class S3_Manager:
             self.s3.upload_fileobj(file, bucket_name, key)
             return f"https://{bucket_name}.s3.{AWS_REGION}.amazonaws.com/{key}"
         except ClientError as e:
-            # Handle upload errors here
             print("Error uploading file to S3:", e)
             return None
 

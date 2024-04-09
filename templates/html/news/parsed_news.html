@@ -29,7 +29,7 @@
             <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text"> {{ post.content|truncatewords_html:10 }}</p>
                     <p class="card-text"> {{ post.date }}</p>
-                    <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read Post</a>
+                    <a href="{% url 'parsed_post_detail' post.id %}" class="btn btn-primary">Read Post</a>
                 </div>
             </div>
         </div>

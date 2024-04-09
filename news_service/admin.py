@@ -12,10 +12,5 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
-class TagAdmin(admin.ModelAdmin):
-    pass
-
-
 admin.site.register(NewsPost, NewsPostAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Tag, TagAdmin)
