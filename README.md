@@ -37,18 +37,19 @@ Ongoing support and updates to the application, including health and performance
 
 #### Unique approaches    
 >Using Django Signals for subscriber notifications
-Automatically send notifications to subscribers when a newpost is created using Django Signals(post_save).
+Automatically send notifications to subscribers when a newpost is created using `Django Signals(post_save)`.
 
->Integration with AWS S3 for storing media files
+>Integration with `AWS S3` for storing media files
 Store images and media files in AWS S3 for efficient media content management.
 
 > Using Django Generic Views and forms for data management
-Using Django Generic Views and creating custom forms to easily manage application data.
+Using `Django Generic Views` and creating custom forms to easily manage application data.
 
 > Scheduling Tasks with APScheduler
-Automating recurring tasks, such as parsing news every 5 minutes, using APScheduler to update data on a regular basis.
+Automation of repetitive tasks, for example, parsing of news from the site `tengrinews.kz from 1 to 8 pages every 5 minutes and thus constantly dynamically provide the latest news`, the use of APScheduler for regular data updates.
 
-> Using SMTP to send email notifications
+
+> Using `SMTP to send email notifications`
 Send email notifications to subscribers about new posts using SMTP to actively inform users
 
 

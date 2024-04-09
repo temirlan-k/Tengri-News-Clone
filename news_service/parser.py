@@ -98,6 +98,6 @@ def parse_and_save_news(base_url, num_pages, output_file):
 
 def parse_and_save_news_wrapper():
     base_url = "https://tengrinews.kz/news/page/"
-    num_pages = 4
+    num_pages = 8
     output_file = "news_service/utils/parsed_data.json"
     parse_and_save_news(base_url, num_pages, output_file)
