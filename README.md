@@ -1,9 +1,10 @@
-# TengiNews Clone
-
+# [TengiNews Clone](https://tengri-news-clone.onrender.com/)
 
 
 ## Introduction
 TengiNews Clone is a Django-based web application that replicates a news aggregator platform. It allows users to view news articles, create posts, subscribe to newsletters, and receive email notifications. The project utilizes `Django`, `PostgreSQL`, `Docker`, and AWS for its functionalities.
+
+Live Demo [here](https://tengri-news-clone.onrender.com/)
 
 
 ## Main Features
@@ -51,22 +52,7 @@ Automating recurring tasks, such as parsing news every 5 minutes, using APSchedu
 Send email notifications to subscribers about new posts using SMTP to actively inform users
 
 
-
-### Tech Stack
-
-> Backend
-> - Language: Python3.10
-> - Framework: Django
-> - Database: PostgreSQL
-> - Containerization: Docker, Docker-Compose
-> - Email Service: Gmail SMTP
-> - Task Scheduling: Django APScheduler
-> - AWS Integration: AWS S3 for file storage
-
-> Frontend
-> - HTML/CSS: Bootstrap, Jinja templates
-
-### Compromises and Challenges
+#### Compromises and Challenges
 
 1. `Simplified User Interface`:
     Challenge: Balancing design simplicity to prioritize essential features over aesthetics.
@@ -84,7 +70,25 @@ Send email notifications to subscribers about new posts using SMTP to actively i
     Challenge: Using .json files instead of a database for parsed news data.
     Compromise: Chose .json storage for simplicity, despite scalability and queryability drawbacks compared to database
 
-### Development Environment 
+
+### Tech Stack
+
+> BackendAccessing the Admin Interface
+> - Language: Python3.10
+> - Framework: Django
+> - Database: PostgreSQL
+> - Containerization: Docker, Docker-Compose
+> - Email Service: Gmail SMTP
+> - Task Scheduling: Django APScheduler
+> - AWS Integration: AWS S3 for file storage
+> - Parser: requests, Beautiful Soup
+
+
+> Frontend
+> - HTML/CSS: Bootstrap, Jinja templates
+
+
+## Development Environment 
 
 #### Installation (Linux)
 
@@ -98,21 +102,22 @@ python3 -m venv venv
 
 source venv/bin/activate
 
-(venv)$ pip install -r requirements.txt 
+pip install -r requirements.txt 
 ```
 
 #### Configuration
-Before applying migrations, creating superusers or running the server, a PostgreSQL database must be created.
+Before applying migrations, creating superusers or running the server, you must create env variables.
 
 ```sh
-touch .env
+touch .env 
 ```
 
 #.env
 ```
 SECRET_KEY=_some_secret_key
-DB_URL_PROD=_remote_db_link
+DB_URL_PROD=_remote_db_link 
 
+#for local development use this!!!,not DB_URL_PROD
 DB_NAME=_your_db_name
 DB_USER=_your_db_user
 DB_PASSWORD=_your_db_password
@@ -130,17 +135,23 @@ EMAIL_USE_TLS =_True
 EMAIL_HOST_USER =_host-user
 EMAIL_HOST_PASSWORD =_host-password
 ```
-Before proceeding, make sure you have Docker installed. Next enter the command
-```bash
-  docker-compose up --build
-```
+Applying Migrations and Creating Superuser:
+Once the database is configured, apply Django migrations to create the necessary database tables and create superuser:
 
-After successfully building and running docker containers, enter this commands
-```bash
-docker-compose exec web bash
+```sh
 python manage.py migrate
 python manage.py createsuperuser
 ```
+After setting up the database and applying migrations, start the Django development server:
+```sh
+python manage.py runserver
+```
+This command will run the server at http://127.0.0.1:8000/
+
+Navigate to http://127.0.0.1:8000/admin/  for Accessing the Admin Interface
+
+
+
 
 ### Project file structure
 ```
@@ -204,8 +215,6 @@ python manage.py createsuperuser
     └──views.py
 
 ```
-
-
 
 ### Support
 
