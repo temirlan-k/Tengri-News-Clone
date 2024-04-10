@@ -2,7 +2,7 @@
 
 
 ## Introduction
-TengiNews Clone is a Django-based web application that replicates a news aggregator platform. It allows users to view news articles, create posts, subscribe to newsletters, and receive email notifications. The project utilizes `Django`, `PostgreSQL`, `Docker`, and AWS for its functionalities.
+TengiNews Clone is a Django-based web application that replicates a news aggregator platform. It allows users to view news articles, create posts, subscribe to newsletters, and receive email notifications. The project utilizes `Django`, `PostgreSQL`, and `AWS` for its functionalities.
 
 Live Demo [here](https://tengri-news-clone.onrender.com/)
 
@@ -10,6 +10,7 @@ Live Demo [here](https://tengri-news-clone.onrender.com/)
 ## Main Features
 
 #### Architecture Design:    
+Design Pattern: Model-View-Template (MVT)
 > Analyzed functional and non-functional requirements, defining core functions like viewing news, creating/editing posts, and managing subscriptions.
 Designed database models (e.g `NewsPost`, `EmailConfirmation`) and logic for user-subscription management.
 
@@ -17,7 +18,7 @@ Designed database models (e.g `NewsPost`, `EmailConfirmation`) and logic for use
 
 >Used `Django` for web development due to its comprehensive toolset, including ORM, authentication, form handling, and subscription management.
 Selected `PostgreSQL` for its reliability, performance, and extensibility.
-Employed `Docker` for containerization to simplify local development and deployment.
+Preferred html,css and bootstrap because it allows you to quickly and efficiently create a front-end and is also well integrated with Django
 
 #### Development of functionality:    
 
@@ -29,10 +30,6 @@ Utilized Django `CBF Generic Views` to manage news display and post creation.
 > Integrated `AWS S3` for uploading news-related images and files.
 Used `SMTP` for email notifications to subscribers about new posts in their categories.
 
-#### Deployment and Support:    
-> Setting up an environment using `Docker` for application development and deployment.
-Ensuring security, including handling user authentication and protecting access to sensitive data.
-Ongoing support and updates to the application, including health and performance monitoring.
 
 
 #### Unique approaches    
@@ -40,13 +37,13 @@ Ongoing support and updates to the application, including health and performance
 Automatically send notifications to subscribers when a newpost is created using `Django Signals(post_save)`.
 
 >Integration with `AWS S3` for storing media files
-Store images and media files in AWS S3 for efficient media content management.
+Store images and media files in AWS S3 for efficient media content management and retrieving media content by image_link(object url)
 
 > Using Django Generic Views and forms for data management
 Using `Django Generic Views` and creating custom forms to easily manage application data.
 
 > Scheduling Tasks with APScheduler
-Automation of repetitive tasks, for example, parsing of news from the site `tengrinews.kz from 1 to 8 pages every 5 minutes and thus constantly dynamically provide the latest news`, the use of APScheduler for regular data updates.
+Automation of repetitive tasks, for example, parsing of news from the site `tengrinews.kz from 1 to 8 pages every 5 minutes and thus constantly dynamically provide the latest news`, the use of `APScheduler` for regular data updates.
 
 
 > Using `SMTP to send email notifications`
@@ -72,13 +69,26 @@ Send email notifications to subscribers about new posts using SMTP to actively i
     Compromise: Chose .json storage for simplicity, despite scalability and queryability drawbacks compared to database
 
 
+### Levels I've passed/done
+**Level 1** - made the list of posts displayed, as well as the ability to click on a selected post and see the post details.
+
+**Level 2** - made pagination on Our News and Parsed News pages.
+I implemented search by title, filtering by categories and sorting by creating date.
+ 
+**Level 3** - wrote a parser using request and bs4 that parses the first 8 pages of tengrinews.kz to parse the latest news.
+I set up a cron job using django-apsheduler that runs the parser every 5 minutes and thus posts dynamically new news every 5 minutes every day.
+
+**Bonus Task** - The Tengri News Clone application has been deployed and is now hosted on Render.com, utilizing a remote PostgreSQL database for data storage.
+
+The live application can be accessed at https://tengri-news-clone.onrender.com/
+
+
 ### Tech Stack
 
-> BackendAccessing the Admin Interface
+> Backend 
 > - Language: Python3.10
 > - Framework: Django
 > - Database: PostgreSQL
-> - Containerization: Docker, Docker-Compose
 > - Email Service: Gmail SMTP
 > - Task Scheduling: Django APScheduler
 > - AWS Integration: AWS S3 for file storage
@@ -107,8 +117,9 @@ pip install -r requirements.txt
 ```
 
 #### Configuration
-Before applying migrations, creating superusers or running the server, you must create env variables.
+Before applying migrations, creating superusers or running the server, you must create env variables file.
 
+For linux
 ```sh
 touch .env 
 ```
@@ -156,8 +167,6 @@ Navigate to http://127.0.0.1:8000/admin/  for Accessing the Admin Interface
 
 ### Project file structure
 ```
-├── docker-compose.yml
-├── Dockerfile
 ├── manage.py
 ├── README.md
 ├── requirements.txt
